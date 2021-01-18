@@ -1,0 +1,60 @@
+.auth-view {
+	margin: auto;
+	max-width: 600px;
+	width: fit-content;
+	padding: 0 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 80vh;
+
+	h1 {
+		margin: 0;
+		padding: 0;
+	}
+
+	.input-container {
+		display: flex;
+		flex-direction: column;
+		padding-top: 1em;
+
+		label {
+			padding-bottom: 5px;
+			font-weight: bolder;
+		}
+
+		input {
+			width: 15rem;
+			font-size: inherit;
+			font-family: inherit;
+			padding: 5px;
+		}
+	}
+
+	button {
+		margin-top: 15px;
+		width: fit-content;
+		padding: 10px 30px;
+		font-family: inherit;
+		font-size: 1em;
+
+		&:hover {
+			cursor: pointer;
+			color: grey;
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	.redirect-link {
+		margin-top: 15px;
+		color: grey;
+		text-decoration: none;
+
+		&:hover {
+			color: black;
+		}
+	}
+}
