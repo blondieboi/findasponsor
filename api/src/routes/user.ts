@@ -74,6 +74,6 @@ userRouter.post('/', async (req, res) => {
 	});
 
 	passport.authenticate('local')(req, res, function () {
-		res.redirect('/');
+		res.send(req.user);
 	});
 });

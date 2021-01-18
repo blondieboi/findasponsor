@@ -1,21 +1,32 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/AuthView.scss';
-import { loginUser } from '../utils/api';
+import { baseUrl } from '../utils/api';
 
 const Login = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	//FIX ON API SiDE AS IT DOESNT Error on failed auth
 	const [isError, setIsError] = useState(false);
 
 	const handleLogin = async () => {
-		loginUser(username, password).catch((err: Error) => {
-			console.log(err);
-			setIsError(true);
-		});
-
-		return;
+		await fetch(`${baseUrl}/auth/login`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			redirect: 'follow',
+			referrerPolicy: 'no-referrer',
+			body: JSON.stringify({ username, password }),
+		})
+			.then((res) => {
+				if (res.ok) {
+					return;
+				}
+				setIsError(true);
+			})
+			.catch((err) => {
+				setIsError(true);
+			});
 	};
 
 	return (
@@ -59,7 +70,6 @@ const Login = () => {
 			) : (
 				<></>
 			)}
-
 			<Link className='redirect-link' to='/register'>
 				You don't have an account? Register now!
 			</Link>

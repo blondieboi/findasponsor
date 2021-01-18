@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/AuthView.scss';
-import { registerUser } from '../utils/api';
+import { baseUrl } from '../utils/api';
 
 const Register = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [isError, setIsError] = useState(false);
 
 	const handleRegistration = async () => {
-		registerUser(username, password).then((_res) => {
-			fetch('http://localhost:1337/auth/authenticated', {
-				method: 'GET',
-				credentials: 'include',
-				headers: {
-					'Access-Control-Allow-Origin': 'http://localhost:3000',
-				},
-			}).catch((err) => console.log(err));
-		});
-
-		return;
+		await fetch(`${baseUrl}/api/user`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			redirect: 'follow',
+			referrerPolicy: 'no-referrer',
+			body: JSON.stringify({ username, password }),
+		})
+			.then((res) => {
+				if (res.ok) {
+					return;
+				}
+				setIsError(true);
+			})
+			.catch((_err) => {
+				setIsError(true);
+			});
 	};
 
 	return (
@@ -47,6 +55,15 @@ const Register = () => {
 				</div>
 			</div>
 			<button onClick={handleRegistration}>Register</button>
+			{isError ? (
+				<div className='error-container'>
+					<p className='error-message'>
+						Could not register, check username and password length.
+					</p>
+				</div>
+			) : (
+				<></>
+			)}
 			<Link className='redirect-link' to='/login'>
 				Already have an account? Login here!
 			</Link>

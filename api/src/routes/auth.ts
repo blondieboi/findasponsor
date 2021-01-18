@@ -3,13 +3,9 @@ import passport from 'passport';
 
 export let authRouter = express.Router();
 
-authRouter.post(
-	'/login',
-	passport.authenticate('local', {
-		successRedirect: '/',
-		failureRedirect: '/login',
-	})
-);
+authRouter.post('/login', passport.authenticate('local', {}), (req, res) => {
+	res.send(req.user);
+});
 
 authRouter.get('/authenticated', (req, res) => {
 	if (req.isAuthenticated()) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
+import Auth from './components/Auth';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -17,7 +18,7 @@ function App() {
 						<Login />
 					</Route>
 					<Route path='/authhome'>
-						<Login />
+						<Auth />
 					</Route>
 					<Route path='/'>
 						<Home />
