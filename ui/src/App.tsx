@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home';
 import Login from './components/Login';
@@ -14,6 +14,9 @@ function App() {
 						<Register />
 					</Route>
 					<Route path='/login'>
+						<Login />
+					</Route>
+					<Route path='/authhome'>
 						<Login />
 					</Route>
 					<Route path='/'>

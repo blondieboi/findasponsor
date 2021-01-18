@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/AuthView.scss';
+import { registerUser } from '../utils/api';
 
 const Register = () => {
-	const [userName, setUserName] = useState('');
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 
 	const handleRegistration = async () => {
-		const url = 'http://localhost:1337/api/user';
-
-		await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			redirect: 'follow',
-			referrerPolicy: 'no-referrer',
-			body: JSON.stringify({ username: userName, password: password }),
+		registerUser(username, password).then((_res) => {
+			fetch('http://localhost:1337/auth/authenticated', {
+				method: 'GET',
+				credentials: 'include',
+				headers: {
+					'Access-Control-Allow-Origin': 'http://localhost:3000',
+				},
+			}).catch((err) => console.log(err));
 		});
+
 		return;
 	};
 
@@ -29,8 +29,8 @@ const Register = () => {
 					<label htmlFor='userName'>Username:</label>
 					<input
 						type='text'
-						onChange={(e) => setUserName(e.target.value)}
-						value={userName}
+						onChange={(e) => setUsername(e.target.value)}
+						value={username}
 						name='username'
 						id='userName'
 					/>
