@@ -37,7 +37,10 @@ const Register = () => {
 					<label htmlFor='userName'>Username:</label>
 					<input
 						type='text'
-						onChange={(e) => setUsername(e.target.value)}
+						onChange={(e) => {
+							setUsername(e.target.value);
+							setIsError(false);
+						}}
 						value={username}
 						name='username'
 						id='userName'
@@ -47,7 +50,10 @@ const Register = () => {
 					<label htmlFor='password'>Password:</label>
 					<input
 						type='password'
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={(e) => {
+							setPassword(e.target.value);
+							setIsError(false);
+						}}
 						value={password}
 						name='password'
 						id='password'
